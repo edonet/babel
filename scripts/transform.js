@@ -21,6 +21,9 @@ const
         presets: [
             require.resolve('babel-preset-env'),
             require.resolve('babel-preset-stage-3')
+        ],
+        plugins: [
+            require.resolve('babel-plugin-transform-runtime')
         ]
     };
 
