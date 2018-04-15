@@ -1,0 +1,17 @@
+{
+  "name": "babel",
+  "version": "0.0.1",
+  "description": "Transform File by Babel",
+  "main": "index.js",
+  "bin": {
+    "babel": "./scripts/index.js"
+  },
+  "repository": "git@github.com:edonet/babel.git",
+  "author": "edoner <edonet@163.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-3": "^6.24.1"
+  }
+}
