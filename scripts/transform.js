@@ -35,24 +35,22 @@ const
  */
 module.exports = function transform(src, dist) {
     return new Promise((resolve, reject) => {
-        babel.transformFile(src, options, function (err, result) {
+        fs.readFile(src, { encoding: 'utf8' }, (err, code) => {
 
             // 处理错误
             if (err) {
                 return reject(err);
             }
 
+            // 直接输出文件
+            if (code.lastIndexOf('module.exports') === -1) {
+                code = babel.transform(code, options).code;
+            }
+
             // 写入文件
-            fs.writeFile(dist, result.code, err => {
-
-                // 处理错误
-                if (err) {
-                    return reject(err);
-                }
-
-                // 转译成功
-                resolve({ src, dist, code: result.code });
-            });
+            fs.writeFile(
+                dist, code, err => err ? reject(err) : resolve({ src, dist, code: code })
+            );
         });
     });
 };
