@@ -1,18 +1,20 @@
 {
-  "name": "babel",
-  "version": "0.0.1",
-  "description": "Transform File by Babel",
-  "main": "index.js",
-  "bin": {
-    "babel": "./scripts/index.js"
-  },
-  "repository": "git@github.com:edonet/babel.git",
-  "author": "edoner <edonet@163.com>",
-  "license": "MIT",
-  "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-3": "^6.24.1"
-  }
+    "name": "@arted/babel",
+    "version": "0.0.101",
+    "description": "Transform File by Babel",
+    "main": "./lib/index.js",
+    "bin": {
+        "babel": "./scripts/babel.js"
+    },
+    "repository": "git@github.com:edonet/babel.git",
+    "author": "edoner <edonet@163.com>",
+    "license": "MIT",
+    "dependencies": {
+        "@arted/utils": "^0.0.116",
+        "babel-core": "^6.26.0",
+        "babel-plugin-transform-runtime": "^6.23.0",
+        "babel-preset-env": "^1.6.1",
+        "babel-preset-stage-3": "^6.24.1",
+        "yargs": "^12.0.1"
+    }
 }
