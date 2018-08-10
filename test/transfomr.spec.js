@@ -13,6 +13,7 @@
  *****************************************
  */
 import fs from '@arted/utils/fs';
+import resolvePath from '../lib/resolvePath';
 import transform from '../lib/transform';
 import transformFile from '../lib/transformFile';
 import babel from '../lib/locals';
@@ -24,6 +25,19 @@ import babel from '../lib/locals';
  *****************************************
  */
 describe('测试【transform】', () => {
+
+    /* 查找文件 */
+    test('查找文件', () => {
+        let resolve = resolvePath();
+
+        expect(resolve('./')).toBe(require.resolve('../'));
+        expect(resolve('./package')).toBe(require.resolve('../package.json'));
+        expect(resolve('./lib/resolvePath')).toBe(require.resolve('../lib/resolvePath.js'));
+        expect(resolve('./.gitignore')).toBe(require.resolve('../.gitignore'));
+        expect(resolve('./.gitignore123')).toBeUndefined();
+        expect(resolve('yargs')).toBe(require.resolve('yargs'));
+        expect(resolve('yargs2')).toBeUndefined();
+    });
 
     /* 转码 */
     test('transform', () => {
