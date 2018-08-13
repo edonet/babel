@@ -17,6 +17,7 @@ import resolvePath from '../lib/resolvePath';
 import transform from '../lib/transform';
 import transformFile from '../lib/transformFile';
 import babel from '../lib/locals';
+import load from '../lib/load';
 
 
 /**
@@ -96,6 +97,28 @@ describe('测试【transform】', () => {
         expect(babel.executeFile(list[1]).default).toBe(3);
         expect(babel.executeFile(list[2]).default).toBe(6);
         expect(babel.executeFile(list[3]).default).toBe(10);
+
+        // 消除文件
+        await Promise.all(list.map(file => fs.unlink(file)));
+    });
+
+    /* 加载文件 */
+    test('加载文件', async () => {
+        let list = ['./a', './b', './c', './d'];
+
+        await Promise.all(list.map((file, idx) => (
+            fs.writeFile(file, (
+                idx ?
+                `import val from "${list[idx - 1]}?test=1"; export default val + ${ idx + 1}` :
+                'export default 1;'
+            ))
+        )));
+
+        // 校验执行结果
+        expect((await load(list[0])).default).toBe(1);
+        expect((await load(list[1])).default).toBe(3);
+        expect((await load(list[2])).default).toBe(6);
+        expect((await load(list[3])).default).toBe(10);
 
         // 消除文件
         await Promise.all(list.map(file => fs.unlink(file)));
