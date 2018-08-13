@@ -110,11 +110,12 @@ describe('测试【transform】', () => {
             fs.writeFile(file, (
                 idx ?
                 `import val from "${list[idx - 1]}?test=1"; export default val + ${ idx + 1}` :
-                'export default 1;'
+                '\n{ "default": 1,\n"__esModule": true, "json": 0 }\n'
             ))
         )));
 
         // 校验执行结果
+        expect((await load(list[0])).json).toBe(0);
         expect((await load(list[0])).default).toBe(1);
         expect((await load(list[1])).default).toBe(3);
         expect((await load(list[2])).default).toBe(6);
